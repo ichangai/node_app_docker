@@ -1,0 +1,15 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    # restart: unless-stopped
+    ports:
+      - 3500:80
+  node-app:
+    build:
+      context: .
+      args:
+        NODE_ENV: production
+    environment:
+      - NODE_ENV=production

@@ -1,0 +1,9 @@
+exit
+show dbs
+exit
+show dbs
+db.books.insertOne({"name":"Maguire"})
+db.books.insert({"name":"harry potter"})
+show dbs
+use mydb
+db
