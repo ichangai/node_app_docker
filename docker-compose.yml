@@ -12,7 +12,7 @@ services:
       - node-app
   node-app:
     build: .
-    # container_name: node-app
+    container_name: node-app
     # restart: unless-stopped
     working_dir: /app
     environment:
