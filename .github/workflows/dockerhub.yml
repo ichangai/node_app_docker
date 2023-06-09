@@ -50,4 +50,5 @@ jobs:
             docker stop node-app || true
             docker rm -f node-app || true
             docker pull brandexio/node-app:latest
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml down
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
