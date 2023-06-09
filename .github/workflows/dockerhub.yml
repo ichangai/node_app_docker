@@ -39,3 +39,15 @@ jobs:
         run: |
           docker build -t $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG .
           docker push $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.IP_ADDRESS }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker stop node-app || true
+            docker rm -f node-app || true
+            docker pull brandexio/node-app:latest
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d

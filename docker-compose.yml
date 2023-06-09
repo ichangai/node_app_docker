@@ -12,6 +12,7 @@ services:
       - node-app
   node-app:
     build: .
+    image: brandexio/node-app
     container_name: node-app
     # restart: unless-stopped
     working_dir: /app
