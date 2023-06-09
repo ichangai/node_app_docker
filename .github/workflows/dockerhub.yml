@@ -47,9 +47,9 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker stop node-app || true
-            docker rm -f node-app || true
-            docker pull brandexio/node-app:latest
-            cd /home/ubuntu/app
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml down
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+            sudo docker stop node-app || true
+            sudo docker rm -f node-app || true
+            sudo docker pull brandexio/node-app:latest
+            sudo cd /home/ubuntu/app
+            sudo docker compose -f docker-compose.yml -f docker-compose.prod.yml down
+            sudo docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
