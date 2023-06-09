@@ -51,5 +51,5 @@ jobs:
             sudo docker rm -f node-app || true
             sudo docker pull brandexio/node-app:latest
             sudo cd /home/ubuntu/app
-            sudo docker compose -f docker-compose.yml -f docker-compose.prod.yml down
-            sudo docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+            sudo docker compose -f app/docker-compose.yml -f app/docker-compose.prod.yml down
+            sudo docker compose -f app/docker-compose.yml -f app/docker-compose.prod.yml up -d --build
