@@ -42,7 +42,6 @@ app.enable("trust proxy");
 app.use("/api/posts", postRouter);
 app.use("/api/users", userRouter);
 
-
 // route for testing
 app.get("/api", (req, res) => {
   res.send("Amazing and glorious purpose! It's awesome purpose");
