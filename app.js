@@ -44,7 +44,9 @@ app.use("/api/users", userRouter);
 
 // route for testing
 app.get("/api", (req, res) => {
-  res.send("Amazing and glorious purpose! It's awesome purpose");
+  res.send(
+    "Amazing and glorious purpose! It's awesome purpose. And simple and Great"
+  );
   console.log("Yeah, I got hit");
 });
 
