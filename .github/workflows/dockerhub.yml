@@ -1,0 +1,55 @@
+name: Docker Hub Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: your-dockerhub-username/your-image-name:latest
+
+      - name: Automatic Tagging of Releases
+        id: increment-git-tag
+        run: |
+          bash ./build/git_update.sh -v major
+      - name: Build, Tag, and Push the Image to docker Hub
+        id: build-image
+        env:
+          DOCKER_USERNAME: brandexio
+          IMAGE_NAME: node-app
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG .
+          docker push $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.IP_ADDRESS }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo docker stop node-app || true
+            sudo docker rm -f node-app || true
+            sudo docker pull brandexio/node-app:latest
+            sudo cd /home/ubuntu/app
+            sudo docker compose -f app/docker-compose.yml -f app/docker-compose.prod.yml down
+            sudo docker compose -f app/docker-compose.yml -f app/docker-compose.prod.yml up -d --build 
