@@ -35,6 +35,8 @@ jobs:
           ECR_REPOSITORY: node-app
           IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
+          docker compose -f app/docker-compose.yml -f app/docker-compose.prod.yml down
+          docker compose -f app/docker-compose.yml -f app/docker-compose.prod.yml up -d --build
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
