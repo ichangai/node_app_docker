@@ -49,5 +49,6 @@ jobs:
             sudo docker rm -f node-app || true
             sudo docker pull 179194013659.dkr.ecr.af-south-1.amazonaws.com/node-app
             sudo cd /home/ubuntu/app
+            #add 
             sudo docker compose -f app/docker-compose.yml -f app/docker-compose.prod.yml down
             sudo docker compose -f app/docker-compose.yml -f app/docker-compose.prod.yml up -d --build
