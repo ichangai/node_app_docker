@@ -45,7 +45,7 @@ app.use("/api/users", userRouter);
 // route for testing
 app.get("/api", (req, res) => {
   res.send(
-    "Amazing and glorious purpose! It's awesome purpose. And simple and Great. Let's make the world a better place through humanity and love. So that we can all live in peace and harmony."
+    "Amazing and glorious purpose! It's awesome purpose. And simple and Great. Let's make the world a better place through humanity and love. So that we can all live in peace and harmony. And we can all be happy."
   );
   console.log("Yeah, I got hit");
 });
